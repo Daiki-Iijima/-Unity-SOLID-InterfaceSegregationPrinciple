@@ -26,7 +26,7 @@ public interface IEntity
     int INT { get; }
     int CHA { get; }
 
-    //  催眠効果をかける
+    //  魅了効果をかける
     void Mesmerize();
 
     //  HP
@@ -62,3 +62,65 @@ public interface IEntity
 IEntityインターフェースは必要なく、IEntityインターフェイスからそれぞれ項目ごとに分離した`複数の小さいインターフェイスを定義`していけばいいということになります。
 
 ## 修正したコード
+
+IEntityインターフェイスが強制していた実装を要素ごとに分割して固めた
+
+- IHeath : HPを持っている
+
+  ```c#
+  /// <summary>
+  /// HPを持たせるInterface
+  /// HPだけを持っていて状態を持っていないオブジェクトもいるので分離している
+  /// </summary>
+  public interface IHealth
+  {
+      int HealthMax { get; }
+      float Health { get; set; }
+      int ModifyHealth(int amount);
+  }
+  ```
+
+- IShield : シールドを持っている
+
+  ```c#
+  /// <summary>
+  /// シールドを持たせるインターフェイス
+  /// </summary>
+  public interface IShield
+  {
+      int ShieldMax { get; }
+      float Shield { get; set; }
+      int ModifyShield(int amount);
+  }
+  ```
+
+- IStats : ステータスを持っている(HP,状態)
+
+  ```c#
+  /// <summary>
+  /// ステータスを持たせるインターフェイス
+  /// </summary>
+  public interface IStats : IHealth
+  {
+      //  ステータス
+      int STR { get; }
+      int STA { get; }
+      int CON { get; }
+      int WIS { get; }
+      int INT { get; }
+      int CHA { get; }
+  }
+  ```
+
+
+- IMesmerized : 魅了可能
+
+  ```c#
+  /// <summary>
+  /// 魅了可能インターフェイス
+  /// </summary>
+  public interface IMesmerized
+  {
+      void Mesmerize();
+  }
+  ```

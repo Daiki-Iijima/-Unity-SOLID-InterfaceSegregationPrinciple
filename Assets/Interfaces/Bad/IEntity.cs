@@ -1,4 +1,5 @@
 //  ゲームに存在するすべてのオブジェクト
+//  ダメな例
 public interface IEntity
 {
     //  ステータス
@@ -9,7 +10,7 @@ public interface IEntity
     int INT { get; }
     int CHA { get; }
 
-    //  催眠効果をかける
+    //  魅了効果をかける
     void Mesmerize();
 
     //  HP
